@@ -43,13 +43,13 @@ wait_http() {
 }
 
 echo "Démarrage IN-CSE :8080..."
-nohup python -m acmecse --config "$TP3/acme-in.ini" > "$TP3/in-cse.log" 2>&1 &
+nohup python -m acmecse --base-directory "$TP3" --config acme-in.ini > "$TP3/in-cse.log" 2>&1 &
 IN_PID=$!
 echo "$IN_PID" >> "$TP3/pids.txt"
 wait_http "http://127.0.0.1:8080/id-in" "IN-CSE"
 
 echo "Démarrage MN-CSE :8081..."
-nohup python -m acmecse --config "$TP3/acme-mn8081.ini" > "$TP3/mn-cse.log" 2>&1 &
+nohup python -m acmecse --base-directory "$TP3" --config acme-mn8081.ini > "$TP3/mn-cse.log" 2>&1 &
 MN_PID=$!
 echo "$MN_PID" >> "$TP3/pids.txt"
 wait_http "http://127.0.0.1:8081/id-mn" "MN-CSE"
